@@ -29,19 +29,30 @@ The Patient Symptom Logger enables clinicians to register patients, log symptom 
 
 
 ## Screenshots & Demo
-<div align="center">
 
-![login](docs/screenshots/login.png)
-![clinician-dashboard](docs/screenshots/clinician_dashboard.png)
-![patient-dashboard](docs/screenshots/patients_dashboard.png)
-![symptom-logging](docs/screenshots/symptom_logging.png)
-![insights](docs/screenshots/clinician_dashboard_2%28insights_symptom_history%29.png)
-![patient-symptom-history](docs/screenshots/clinician_dashboard_1%28patient_symptom_history%29.png)
-![swagger-ui](docs/screenshots/swagger.png)
+### Login Page
+![Login Page](docs/screenshots/login.png "Login Page")
 
+### Clinician Dashboard
+![Clinician Dashboard](docs/screenshots/clinician_dashboard.png "Clinician Dashboard")
+
+### Patient Dashboard
+![Patient Dashboard](docs/screenshots/patients_dashboard.png "Patient Dashboard")
+
+### Symptom Logging
+![Symptom Logging](docs/screenshots/symptom_logging.png "Symptom Logging")
+
+### Insights Panel
+![Insights Panel](docs/screenshots/clinician_dashboard_2%28insights_symptom_history%29.png "Insights Panel")
+
+### Patient Symptom History
+![Patient Symptom History](docs/screenshots/clinician_dashboard_1%28patient_symptom_history%29.png "Patient Symptom History")
+
+### Swagger UI
+![Swagger UI](docs/screenshots/swagger.png "Swagger UI")
+
+### Demo Video
 [Watch demo video](docs/DEMO_video.mp4)
-
-</div>
 
 
 
