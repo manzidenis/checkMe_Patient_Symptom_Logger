@@ -31,15 +31,15 @@ The Patient Symptom Logger enables clinicians to register patients, log symptom 
 ## Screenshots & Demo
 <div align="center">
 
-![login](docs\screenshots\login.png)
-![clinician-dashboard](docs\screenshots\clinician_dashboard.png)
-![patient-dashboard](docs\screenshots\patients_dashboard.png)
-![symptom-logging](docs\screenshots\symptom_logging.png)
-![insights](docs\screenshots\clinician_dashboard_2(insights_symptom_history).png)
-![patient-symptom-history](docs\screenshots\clinician_dashboard_1(patient_symptom_history).png)
-![swagger-ui](docs\screenshots\swagger.png)
+![login](docs/screenshots/login.png)
+![clinician-dashboard](docs/screenshots/clinician_dashboard.png)
+![patient-dashboard](docs/screenshots/patients_dashboard.png)
+![symptom-logging](docs/screenshots/symptom_logging.png)
+![insights](docs/screenshots/clinician_dashboard_2%28insights_symptom_history%29.png)
+![patient-symptom-history](docs/screenshots/clinician_dashboard_1%28patient_symptom_history%29.png)
+![swagger-ui](docs/screenshots/swagger.png)
 
-![DEMO-VIDEO](docs\DEMO_video.mp4)
+[Watch demo video](docs/DEMO_video.mp4)
 
 </div>
 
