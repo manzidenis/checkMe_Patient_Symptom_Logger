@@ -17,8 +17,9 @@ export const patientFormSchema = z.object({
     email: z
         .string()
         .trim()
+        .min(1, 'Email address is required')
         .max(254, 'Email must be under 254 characters')
-        .refine((value) => value === '' || EMAIL_REGEX.test(value), 'Enter a valid email address'),
+        .refine((value) => EMAIL_REGEX.test(value), 'Enter a valid email address'),
     country: z.string().min(1, 'Country is required').max(100, 'Country must be under 100 characters'),
     city: z.string().min(1, 'City is required').max(100, 'City must be under 100 characters'),
 })

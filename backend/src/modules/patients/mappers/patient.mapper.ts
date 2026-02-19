@@ -10,7 +10,7 @@ export interface PatientResponse {
     age: number;
     sex: string;
     phone: string;
-    email: string | null;
+    email: string;
     country: string;
     city: string;
     createdAt: string;

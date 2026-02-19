@@ -1,6 +1,11 @@
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { symptomFormSchema, type SymptomFormValues } from './symptomForm.schema'
+import {
+    symptomFormSchema,
+    type SymptomFormValues,
+    MAX_NOTES_WORDS,
+    countWords,
+} from './symptomForm.schema'
 import { SYMPTOM_TYPE_OPTIONS } from '../../../constants/symptomTypes'
 import Select from '../../ui/Select'
 import Input from '../../ui/Input'
@@ -22,6 +27,7 @@ export default function SymptomForm({ onSubmit, isLoading, error, defaultValues,
         register,
         handleSubmit,
         control,
+        watch,
         formState: { errors },
     } = useForm<SymptomFormValues>({
         resolver: zodResolver(symptomFormSchema),
@@ -31,6 +37,8 @@ export default function SymptomForm({ onSubmit, isLoading, error, defaultValues,
             ...defaultValues,
         },
     })
+    const notesValue = watch('notes') ?? ''
+    const notesWordCount = countWords(notesValue)
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
@@ -69,6 +77,11 @@ export default function SymptomForm({ onSubmit, isLoading, error, defaultValues,
                 error={errors.notes?.message}
                 {...register('notes')}
             />
+            <p
+                className={`-mt-2 text-xs ${notesWordCount > MAX_NOTES_WORDS ? 'text-danger' : 'text-gray-500'}`}
+            >
+                {notesWordCount}/{MAX_NOTES_WORDS} words
+            </p>
 
             <div className="pt-2">
                 <Button type="submit" isLoading={isLoading} className="w-full">

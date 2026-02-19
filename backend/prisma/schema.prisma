@@ -46,7 +46,7 @@ model Patient {
   dateOfBirth DateTime
   sex         Sex
   phone       String
-  email       String?
+  email       String
   country     String
   city        String
 

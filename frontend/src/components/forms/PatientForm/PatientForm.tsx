@@ -75,8 +75,7 @@ export default function PatientForm({ onSubmit, isLoading, defaultValues, submit
                     autoComplete="tel"
                     pattern="\\+[1-9]\\d{7,14}"
                     placeholder="+250788123456"
-                    helperText="Use international format: +[country code][number]"
-                    error={errors.phone?.message}
+                     error={errors.phone?.message}
                     {...register('phone')}
                 />
             </div>
@@ -88,7 +87,6 @@ export default function PatientForm({ onSubmit, isLoading, defaultValues, submit
                 inputMode="email"
                 autoComplete="email"
                 placeholder="name@example.com"
-                helperText="Optional, but must be a valid email format"
                 error={errors.email?.message}
                 {...register('email')}
             />

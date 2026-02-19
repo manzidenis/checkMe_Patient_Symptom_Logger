@@ -8,7 +8,7 @@ export interface Patient {
     age: number
     sex: 'MALE' | 'FEMALE' | 'OTHER'
     phone: string
-    email: string | null
+    email: string
     country: string
     city: string
     createdAt: string
@@ -23,7 +23,7 @@ export interface CreatePatientPayload {
     dateOfBirth: string
     sex: 'MALE' | 'FEMALE' | 'OTHER'
     phone: string
-    email?: string
+    email: string
     country: string
     city: string
 }

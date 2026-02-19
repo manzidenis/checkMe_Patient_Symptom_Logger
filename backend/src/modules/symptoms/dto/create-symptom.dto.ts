@@ -1,6 +1,7 @@
 import { IsEnum, IsInt, Min, Max, IsDateString, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { SymptomType } from '@prisma/client';
+import { MaxWords } from '../../../common/validators/max-words.validator';
 
 export class CreateSymptomDto {
   @ApiProperty({ description: 'Symptom type from predefined list', enum: SymptomType, example: 'BREAST_PAIN' })
@@ -17,8 +18,12 @@ export class CreateSymptomDto {
   @IsDateString()
   occurredAt!: string;
 
-  @ApiPropertyOptional({ description: 'Optional notes', example: 'Pain worsens in the morning' })
+  @ApiPropertyOptional({
+    description: 'Optional notes (maximum 90 words)',
+    example: 'Pain worsens in the morning',
+  })
   @IsOptional()
   @IsString()
+  @MaxWords(90, { message: 'Notes must contain at most 90 words' })
   notes?: string;
 }
