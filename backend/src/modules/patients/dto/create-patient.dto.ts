@@ -1,6 +1,8 @@
-import { IsString, IsEnum, IsNotEmpty, IsDateString, IsOptional } from 'class-validator';
+import { IsString, IsEnum, IsNotEmpty, IsDateString, IsOptional, IsEmail, Matches } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Sex } from '@prisma/client';
+
+const E164_PHONE_REGEX = /^\+[1-9]\d{7,14}$/;
 
 export class CreatePatientDto {
   @ApiProperty({ description: 'First name', example: 'Jane' })
@@ -26,14 +28,15 @@ export class CreatePatientDto {
   @IsEnum(Sex)
   sex!: Sex;
 
-  @ApiProperty({ description: 'Phone number', example: '+250788123456' })
+  @ApiProperty({ description: 'Phone number in E.164 format', example: '+250788123456' })
   @IsString()
   @IsNotEmpty()
+  @Matches(E164_PHONE_REGEX, { message: 'Phone number must be in international format, e.g. +250788123456' })
   phone!: string;
 
   @ApiPropertyOptional({ description: 'Email address', example: 'jane@example.com' })
   @IsOptional()
-  @IsString()
+  @IsEmail({}, { message: 'Email must be a valid email address' })
   email?: string;
 
   @ApiProperty({ description: 'Country', example: 'Rwanda' })
