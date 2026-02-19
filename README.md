@@ -98,71 +98,174 @@ patient_symptom_logger/
 
 ## Setup & Run Instructions
 
-### Option 1: Docker Compose (Recommended)
+### 1) Get the project files
 
-Spins up the database, backend, and frontend with a single command.
-
-**Prerequisites:** Docker and Docker Compose installed.
+#### Option A: Clone with Git
 
 ```bash
-# Clone and navigate to the project
-cd patient_symptom_logger
+git clone https://github.com/manzidenis/checkMe_Patient_Symptom_Logger.git
+cd checkMe_Patient_Symptom_Logger
+```
 
-# Start all services
-docker compose up --build
+#### Option B: Download ZIP from GitHub
 
-# Or run in detached mode
+1. Open `https://github.com/manzidenis/checkMe_Patient_Symptom_Logger`
+2. Click **Code** -> **Download ZIP**
+3. Extract the ZIP
+4. Open a terminal in the extracted root folder (the folder containing `docker-compose.yml`)
+
+### 2) Install prerequisites and verify versions
+
+#### Install links
+
+- Git: https://git-scm.com/downloads
+- Docker Desktop (Docker Engine + Compose): https://docs.docker.com/get-started/get-docker/
+- Docker Compose docs: https://docs.docker.com/compose/install/
+- Node.js: https://nodejs.org/en/download
+- PostgreSQL: https://www.postgresql.org/download/
+
+#### Verify installed versions
+
+```bash
+git --version
+docker --version
+docker compose version
+node -v
+npm -v
+```
+
+If running locally without Docker, also verify PostgreSQL:
+
+```bash
+psql --version
+```
+
+### 3) Option 1: Docker Compose (Recommended)
+
+#### Step 1: Confirm Docker engine is running
+
+```bash
+docker info
+```
+
+If this fails, start Docker Desktop and try again.
+
+#### Step 2: Build and start all services
+
+```bash
 docker compose up --build -d
 ```
 
-| Services     | URL                          |
-| ------------ | ---------------------------- |
-| Frontend     | http://localhost:5173        |
-| Backend API  | http://localhost:3000/health |
-| Swagger Docs | http://localhost:3000/api    |
+#### Step 3: Verify services
 
 ```bash
-# Stop services
-docker compose down
+docker compose ps
+docker compose logs --tail=100 backend
+docker compose logs --tail=100 frontend
+docker compose logs --tail=100 db
+```
 
-# Stop and wipe database
+Expected:
+
+- `backend` status is `Up`
+- `frontend` status is `Up`
+- `db` status is `Up (healthy)`
+- backend logs show startup on port `3000`
+
+#### Step 4: Verify endpoints
+
+| Service        | URL                          |
+| -------------- | ---------------------------- |
+| Frontend       | http://localhost:5173        |
+| Backend Health | http://localhost:3000/health |
+| Swagger Docs   | http://localhost:3000/api    |
+
+Optional terminal check:
+
+```bash
+curl http://localhost:3000/health
+```
+
+#### Step 5: Stop services
+
+```bash
+docker compose down
+```
+
+Reset the database volume (fresh data on next run):
+
+```bash
 docker compose down -v
 ```
 
-### Option 2: Local Development
+#### Quick Docker troubleshooting
 
-**Prerequisites:** Node.js 20+, PostgreSQL running locally.
+```bash
+# Inspect recent backend errors
+docker compose logs --tail=200 backend
 
-#### Backend
+# Full clean restart
+docker compose down -v --remove-orphans
+docker compose up --build -d
+```
+
+### 4) Option 2: Local development (without Docker)
+
+#### Step 1: Ensure PostgreSQL is running locally
+
+Use your system service manager to start PostgreSQL first.
+
+#### Step 2: Configure backend env
 
 ```bash
 cd backend
+```
 
-# Install dependencies
+Create or edit `backend/.env`:
+
+```env
+DATABASE_URL=postgresql://user:password@localhost:5432/yourdb
+PORT=3000
+JWT_SECRET=symptom-logger-jwt-secret
+```
+
+Adjust username/password/database to match your local PostgreSQL instance.
+
+#### Step 3: Install backend dependencies and prepare DB
+
+```bash
 npm install
-
-# Set up database URL
-# Edit .env → DATABASE_URL=postgresql://user:pass@localhost:5432/yourdb
-
-# Run migrations and seed
+npx prisma generate
 npx prisma migrate dev
 npx prisma db seed
+```
 
-# Start dev server (port 3000)
+#### Step 4: Start backend
+
+```bash
 npm run start:dev
 ```
 
-#### Frontend
+Verify backend:
+
+- http://localhost:3000/health
+- http://localhost:3000/api
+
+#### Step 5: Start frontend
+
+Open a new terminal in project root:
 
 ```bash
 cd frontend
-
-# Install dependencies
 npm install
-
-# Start dev server (port 5173, proxies /api → backend)
 npm run dev
 ```
+
+Verify frontend:
+
+- http://localhost:5173
+
+Note: in local dev, frontend proxies `/api` to `http://localhost:3000`.
 
 ### Demo Credentials
 
