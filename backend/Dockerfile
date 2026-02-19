@@ -12,9 +12,10 @@ RUN npm ci
 COPY prisma ./prisma
 RUN npx prisma generate
 
-COPY tsconfig.json tsconfig.build.json* nest-cli.json* ./
+COPY tsconfig.json tsconfig.build.json* tsconfig.seed.json nest-cli.json* ./
 COPY src ./src
 RUN npm run build
+RUN npm run build:seed
 
 FROM node:20-bookworm-slim AS production
 

@@ -22,7 +22,11 @@ echo "Running database migrations"
 npx prisma migrate deploy
 
 echo "Seeding database"
-npx prisma db seed || echo "Seeding skipped (may already be seeded)"
+if [ -f dist/prisma/seed.js ]; then
+  node dist/prisma/seed.js || echo "Seeding skipped (may already be seeded)"
+else
+  npx prisma db seed || echo "Seeding skipped (may already be seeded)"
+fi
 
 echo "Starting backend server"
 exec node dist/src/main.js
